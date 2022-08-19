@@ -106,6 +106,6 @@ app.delete('/todo/:id',checktoken,async(req,res)=>{
     await Todoschema.deleteOne({title:b.title,task:b.task}).then(res=>console.log(res,'deleted'));
 })
 
-app.listen(5000,()=>{
+app.listen(process.env.PORT || 5000,()=>{
     console.log('server running')
 })
