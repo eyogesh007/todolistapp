@@ -13,32 +13,9 @@ app.use(cors({origin:"*"}))
 
 
 app.get('/',(req,res)=>{
-    res.send('chat app')
+    res.send('todolist app')
 })
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://shrouded-journey-38552.heroku...']
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log("** Origin of request " + origin)
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      console.log("Origin acceptable")
-      callback(null, true)
-    } else {
-      console.log("Origin rejected")
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-
-const path = require('path');
-if (process.env.NODE_ENV === 'production') {
- // Serve any static files
- app.use(express.static(path.join(__dirname, 'client/build')));
-// Handle React routing, return all requests to React app
- app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
- });
-}
 
 app.post('/register',async(req,res)=>{
     console.log(req)
@@ -84,12 +61,12 @@ app.get('/user',checktoken,async(req,res)=>{
 })   
 
 app.post('/todo',checktoken,async(req,res)=>{
-    let {title,task}=req.body;
+    let {date,title,task}=req.body;
     let exist = await Register.findById(req.user.id);
     let newuser=new Todoschema({
         user:req.user.id,
         username:exist.username,
-        title,task
+        date,title,task
     });
     await newuser.save()
     res.send('data uploaded')
@@ -106,6 +83,6 @@ app.delete('/todo/:id',checktoken,async(req,res)=>{
     await Todoschema.deleteOne({title:b.title,task:b.task}).then(res=>console.log(res,'deleted'));
 })
 
-app.listen(process.env.PORT || 5000,()=>{
+app.listen( 5000,()=>{
     console.log('server running')
 })

@@ -9,6 +9,10 @@ let Todoschema = new mongoose.Schema({
         type : String,
         required : true
     },
+    date:{
+        type:String,
+        requires:true
+    },
     title:{
         type:String,
         required:true
