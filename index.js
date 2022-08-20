@@ -40,6 +40,12 @@ app.get('/',(req,res)=>{
     res.send('todolist app')
 })
 
+app.get('*', function (req, res) {
+    const index = path.join(__dirname, 'build', 'index.html');
+    res.sendFile(index);
+  });
+  
+
 
 app.post('/register',async(req,res)=>{
     console.log(req)
