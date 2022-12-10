@@ -8,6 +8,13 @@ const checktoken=require('./checktoken');
 const cors = require('cors');
 app.use(express.json());
 
+mongoose.set("debug", true);
+mongoose.set("strictQuery", false);
+const options = {
+  strict: "throw",
+  strictQuery: false
+};
+
 mongoose.connect("mongodb+srv://yogesh:yoge111@cluster0.grmrsyh.mongodb.net/?retryWrites=true&w=majority").then(()=>console.log("db connected"))
 app.use(cors({origin:"*"}))
 

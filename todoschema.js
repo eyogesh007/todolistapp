@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
-
+mongoose.set("debug", true);
+mongoose.set("strictQuery", false);
+const options = {
+  strict: "throw",
+  strictQuery: false
+};
 let Todoschema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
@@ -21,6 +26,6 @@ let Todoschema = new mongoose.Schema({
         type:String,
         required:true
     }
-})
+},options)
 
 module.exports = mongoose.model('Todoschema',Todoschema)
